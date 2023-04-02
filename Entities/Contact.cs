@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.Reflection.Metadata;
 
 namespace ContactAPI.Entities
@@ -7,16 +8,23 @@ namespace ContactAPI.Entities
     public class Contact
     {
         public int Id { get; set; }
+        [Required]
+        [StringLength(20)]
         public string Name { get; set; }
 
+        [Required]
+        [StringLength(30)]
         public string Surname { get; set; }
 
+        [EmailAddress]
         public string Email { get; set; }
-       
-        //TODO public string Password { get; set; }
 
-        public Category Category { get; set; }
+        [Required]
+        public string HashedPassword { get; set; }
 
+        public string Category { get; set; }
+
+        [Phone]
         public string PhoneNumber { get; set; }
 
         

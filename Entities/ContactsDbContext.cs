@@ -8,17 +8,11 @@ namespace ContactAPI.Entities
 
         public DbSet<Contact> Contacts { get; set; }
 
-        public DbSet<Category> Categories { get; set; }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Contact>()
                 .Property(r => r.Id)
                 .IsRequired();
-
-            modelBuilder.Entity<Category>()
-                .Property(r => r.Id)
-                .IsRequired(); 
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

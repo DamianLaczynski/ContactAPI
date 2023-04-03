@@ -13,6 +13,7 @@ builder.Services.AddDbContext<ContactsDbContext>();
 builder.Services.AddScoped<ContactSeeder>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IContactService, ContactService>();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
@@ -25,6 +26,12 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.UseHttpsRedirection();
+
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Contact API");
+});
 
 app.UseAuthorization();
 

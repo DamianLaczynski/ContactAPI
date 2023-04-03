@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace ContactAPI.Controllers
 {
     [Route("api/contact")]
+    [ApiController]
     public class ContactController : ControllerBase
     {
         private readonly IContactService _contactService;
@@ -32,10 +33,6 @@ namespace ContactAPI.Controllers
         [HttpPut("{id}")]
         public ActionResult UpdateContact([FromBody] UpdateContactDto dto, [FromRoute]int id)
         {
-            if(!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
             var isUpdated = _contactService.Update(id, dto);
             if(!isUpdated)
             {
@@ -47,10 +44,6 @@ namespace ContactAPI.Controllers
         [HttpPost]
         public ActionResult CreateContact([FromBody] CreateContactDto dto)
         {
-            if(!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
             int id = _contactService.Create(dto);
             return Created($"/api/contact/{id}", null);
         }

@@ -41,13 +41,6 @@ namespace ContactAPI.Controllers
             return Ok();
         }
 
-        [HttpPost]
-        public ActionResult CreateContact([FromBody] CreateContactDto dto)
-        {
-            int id = _contactService.Create(dto);
-            return Created($"/api/contact/{id}", null);
-        }
-
         [HttpGet]
         public ActionResult<IEnumerable<ContactDto>> GetAll()
         {

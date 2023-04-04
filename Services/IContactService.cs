@@ -6,7 +6,6 @@ namespace ContactAPI.Services
     {
         bool Delete(int id);
         bool Update(int id, UpdateContactDto dto);
-        int Create(CreateContactDto dto);
         IEnumerable<ContactDto> GetAll();
         ContactDto GetById(int id);
     }

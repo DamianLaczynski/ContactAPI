@@ -36,15 +36,6 @@ namespace ContactAPI.Services
             return contactsDtos;
         }
 
-        public int Create(CreateContactDto dto)
-        {
-
-            var contact = _mapper.Map<Contact>(dto);
-            _context.Contacts.Add(contact);
-            _context.SaveChanges();
-            return contact.Id;
-        }
-
         public bool Update(int id, UpdateContactDto dto)
         {
             var contact = _context.Contacts.FirstOrDefault(x => x.Id == id);

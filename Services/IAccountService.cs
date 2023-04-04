@@ -6,6 +6,6 @@ namespace ContactAPI.Services
     {
         public void RegisterUser(RegisterContactDto contactDto);
 
-        public void LoginUser(LoginDto loginDto);
+        public string GenerateJwt(LoginDto loginDto);
     }
 }

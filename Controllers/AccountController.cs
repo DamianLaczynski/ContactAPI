@@ -24,8 +24,8 @@ namespace ContactAPI.Controllers
         [HttpPost("login")]
         public ActionResult Login([FromBody]LoginDto dto)
         {
-            _accountService.LoginUser(dto);
-            return Ok();
+            string token = _accountService.GenerateJwt(dto);
+            return Ok(token);
         }
     }
 }

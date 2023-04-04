@@ -8,7 +8,9 @@ namespace ContactAPI
     {
         public ContactMappingProfile() 
         {
-            CreateMap<Contact,ContactDto>();
+
+            CreateMap<Contact,ContactDto>()
+                .ForMember(e => e.Role, c => c.MapFrom(s => s.Role.Name));
                 
         }
     }

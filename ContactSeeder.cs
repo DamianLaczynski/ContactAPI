@@ -15,30 +15,33 @@ namespace ContactAPI
         {
             if (_dbContext.Database.CanConnect())
             {
-                if (!_dbContext.Contacts.Any())
+                if (!_dbContext.Roles.Any())
                 {
-                    _dbContext.Contacts.AddRange(GetContacts());
+                    _dbContext.Roles.AddRange(GetRoles());
                     _dbContext.SaveChanges();
                 }
             }
         }
 
-        private IEnumerable<Contact> GetContacts()
+        private IEnumerable<Role> GetRoles() 
         {
-            List<Contact> contacts = new List<Contact>()
+            List<Role> roles = new List<Role>()
             {
-                new Contact()
+                new Role()
                 {
-                    Name = "admin",
-                    Email = "admin@admin.com",
-                    //Birthday = "020202",
-                    PhoneNumber = "123456789",
-                    HashedPassword = "admin",
-                    Surname = "ADMIN",
-                    Category = "chef"
+                    Name = "chef"
+                },
+                new Role()
+                {
+                    Name= "client"
+                },
+                new Role()
+                {
+                    Name = "another"
                 }
             };
-            return contacts;
+
+            return roles;
         }
     }
 }

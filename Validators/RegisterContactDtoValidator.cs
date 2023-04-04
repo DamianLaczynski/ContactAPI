@@ -9,9 +9,19 @@ namespace ContactAPI.Validators
     {
         public RegisterContactDtoValidator(ContactsDbContext dbContext) 
         {
+            RuleFor(c => c.Name).NotEmpty().MaximumLength(30);
+
+            RuleFor(c => c.Surname).NotEmpty().MaximumLength(30);
+
             RuleFor(x => x.Email).NotEmpty().EmailAddress();
 
-            RuleFor(x => x.Password).NotEmpty();
+            RuleFor(x => x.RoleID).NotEmpty();
+
+            RuleFor(x => x.Password);
+
+            RuleFor(x => x.ConfirmedPassword).Equal(e => e.Password);
+
+            RuleFor(x => x.PhoneNumber).NotEmpty();
 
             RuleFor(x => x.Email).Custom((value, context) =>
             {
@@ -22,7 +32,6 @@ namespace ContactAPI.Validators
                 }
             });
 
-            RuleFor(x => x.PhoneNumber).NotEmpty();
         }
     }
 }

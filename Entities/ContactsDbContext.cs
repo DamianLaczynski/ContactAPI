@@ -7,11 +7,16 @@ namespace ContactAPI.Entities
         private string _connectionString = "Server=(localdb)\\Contacts;Database=ContactsDb;Trusted_Connection=True;";
 
         public DbSet<Contact> Contacts { get; set; }
+        public DbSet<Role> Roles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Role>()
+                .Property(r => r.Name)
+                .IsRequired();
+
             modelBuilder.Entity<Contact>()
-                .Property(r => r.Id)
+                .Property(c => c.Id)
                 .IsRequired();
         }
 

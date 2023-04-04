@@ -19,14 +19,18 @@ namespace ContactAPI.Services
 
         public ContactDto GetById(int id)
         {
-            var contact = _context.Contacts.FirstOrDefault(x => x.Id == id);
+            var contact = _context.Contacts
+                .Include(c => c.Role)
+                .FirstOrDefault(x => x.Id == id);
             if (contact == null)
             {
                 return null;
             }
+            //var role = _context.Roles.FirstOrDefault(r => r.Id == contact.RoleID);
+            //contact.Role = new Role() { Name = role.Name };
 
-            var resut = _mapper.Map<ContactDto>(contact);
-            return resut;
+            var result = _mapper.Map<ContactDto>(contact);
+            return result;
         }
 
         public IEnumerable<ContactDto> GetAll()

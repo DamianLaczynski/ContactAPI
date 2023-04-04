@@ -24,6 +24,7 @@ builder.Services.AddAuthentication(option =>
     option.DefaultAuthenticateScheme = "Bearer";
     option.DefaultScheme = "Bearer";
     option.DefaultAuthenticateScheme = "Bearer";
+
 }).AddJwtBearer(cfg =>
 {
     cfg.RequireHttpsMetadata = false;
@@ -34,17 +35,26 @@ builder.Services.AddAuthentication(option =>
         ValidAudience = authenticationSetting.JwtIssuer,
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authenticationSetting.JwtKey))
     };
+
 });
 
 builder.Services.AddControllers().AddFluentValidation();
+
 builder.Services.AddDbContext<ContactsDbContext>();
+
 builder.Services.AddScoped<ContactSeeder>();
+
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 builder.Services.AddScoped<IContactService, ContactService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
+
 builder.Services.AddScoped<IPasswordHasher<Contact>, PasswordHasher<Contact>>();
+
 builder.Services.AddScoped<IValidator<RegisterContactDto>, RegisterContactDtoValidator>();
 builder.Services.AddScoped<IValidator<LoginDto>, LoginDtoValidator>();
+builder.Services.AddScoped<IValidator<UpdateContactDto>, UpdateContactDtoValidator>();
+
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
@@ -56,6 +66,7 @@ using (var scope = app.Services.CreateScope())
     var contactSeeder = scope.ServiceProvider.GetService<ContactSeeder>();
     contactSeeder.Seed();
 }
+
 app.UseAuthentication();
 app.UseHttpsRedirection();
 

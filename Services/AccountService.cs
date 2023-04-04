@@ -23,18 +23,19 @@ namespace ContactAPI.Services
             _authenticationSettings = authenticationSettings;
         }
 
-        public void RegisterUser(RegisterContactDto contactDto)
+        public void RegisterUser(RegisterContactDto dto)
         {
+
             var newContact = new Contact()
             {
-                Email = contactDto.Email,
-                Name = contactDto.Name,
-                PhoneNumber = contactDto.PhoneNumber,
-                Surname = contactDto.Surname,
-                Category = contactDto.Category
+                Email = dto.Email,
+                Name = dto.Name,
+                PhoneNumber = dto.PhoneNumber,
+                Surname = dto.Surname,
+                RoleID = dto.RoleID
             };
 
-            var hashedPassword = _passwordHasher.HashPassword(newContact, contactDto.Password);
+            var hashedPassword = _passwordHasher.HashPassword(newContact, dto.Password);
             newContact.HashedPassword = hashedPassword;
             _context.Contacts.Add(newContact);
             _context.SaveChanges();
@@ -43,10 +44,13 @@ namespace ContactAPI.Services
         public string GenerateJwt(LoginDto loginDto)
         {
             var user = _context.Contacts.FirstOrDefault(u=> u.Email == loginDto.Email);
-            if(user is null)
+
+            if (user is null)
             {
                 throw new BadRequestException("Invalid username or password");
             }
+
+            var role = _context.Roles.FirstOrDefault(e => e.Id == user.RoleID);
 
             var result = _passwordHasher.VerifyHashedPassword(user, user.HashedPassword, loginDto.Password);
             if(result == PasswordVerificationResult.Failed)
@@ -56,9 +60,8 @@ namespace ContactAPI.Services
             var claims = new List<Claim>()
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, $"{user.Name} {user.Surname}")
-               // new Claim(ClaimTypes.Role, user.Role.Name),
-                //new Claim("DateOfBirth", user.DateOfBirth.Value.ToString("yyyy-MM-dd"))
+                new Claim(ClaimTypes.Name, $"{user.Name} {user.Surname}"),
+                new Claim(ClaimTypes.Role, role.Name)
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authenticationSettings.JwtKey));

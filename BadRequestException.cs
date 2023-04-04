@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace ContactAPI.Services
+namespace ContactAPI
 {
     [Serializable]
     internal class BadRequestException : Exception

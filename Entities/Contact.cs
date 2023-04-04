@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection.Metadata;
+using System.Runtime.CompilerServices;
 
 namespace ContactAPI.Entities
 {
@@ -27,6 +28,7 @@ namespace ContactAPI.Entities
 
         public string PhoneNumber { get; set; }
 
+        [DataType(DataType.DateTime)]
         public System.DateTime? DateOfBirth { get; set; }
 
         [Required]

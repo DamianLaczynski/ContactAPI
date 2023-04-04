@@ -1,5 +1,6 @@
 ﻿using ContactAPI.Models;
 using ContactAPI.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ContactAPI.Controllers
@@ -15,6 +16,7 @@ namespace ContactAPI.Controllers
         }
 
         [HttpPost("register")]
+        [Authorize]
         public ActionResult RegisterContact([FromBody]RegisterContactDto dto)
         {
             _accountService.RegisterUser(dto);

@@ -32,7 +32,8 @@ namespace ContactAPI.Services
                 Name = dto.Name,
                 PhoneNumber = dto.PhoneNumber,
                 Surname = dto.Surname,
-                RoleID = dto.RoleID
+                RoleID = dto.RoleID,
+                DateOfBirth = dto.DateOfBirth
             };
 
             var hashedPassword = _passwordHasher.HashPassword(newContact, dto.Password);

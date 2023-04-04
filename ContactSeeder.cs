@@ -29,15 +29,15 @@ namespace ContactAPI
             {
                 new Role()
                 {
-                    Name = "chef"
+                    Name = "służbowy"
                 },
                 new Role()
                 {
-                    Name= "client"
+                    Name= "prywatny"
                 },
                 new Role()
                 {
-                    Name = "another"
+                    Name = "inny"
                 }
             };
 

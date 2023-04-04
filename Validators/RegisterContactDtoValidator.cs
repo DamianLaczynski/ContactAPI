@@ -17,7 +17,7 @@ namespace ContactAPI.Validators
 
             RuleFor(x => x.RoleID).NotEmpty();
 
-            RuleFor(x => x.Password);
+            RuleFor(x => x.Password).MinimumLength(10).Matches("[A-Z]").Matches("[a-z]").Matches("[0-9]");
 
             RuleFor(x => x.ConfirmedPassword).Equal(e => e.Password);
 

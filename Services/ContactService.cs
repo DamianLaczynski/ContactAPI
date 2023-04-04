@@ -17,26 +17,26 @@ namespace ContactAPI.Services
             _mapper = mapper;
         }
 
-        public ContactDto GetById(int id)
+        public T GetById<T>(int id) where T : IContact
         {
             var contact = _context.Contacts
                 .Include(c => c.Role)
                 .FirstOrDefault(x => x.Id == id);
             if (contact == null)
             {
-                return null;
+                return default(T);
             }
-            //var role = _context.Roles.FirstOrDefault(r => r.Id == contact.RoleID);
-            //contact.Role = new Role() { Name = role.Name };
 
-            var result = _mapper.Map<ContactDto>(contact);
+            var result = _mapper.Map<T>(contact);
             return result;
         }
 
-        public IEnumerable<ContactDto> GetAll()
+        public IEnumerable<T> GetAll<T>() where T : IContact
         {
-            var contacts = _context.Contacts.ToList();
-            var contactsDtos = _mapper.Map<List<ContactDto>>(contacts);
+            var contacts = _context.Contacts
+                .Include (c => c.Role)
+                .ToList();
+            var contactsDtos = _mapper.Map<List<T>>(contacts);
             return contactsDtos;
         }
 

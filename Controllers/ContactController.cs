@@ -2,6 +2,7 @@
 using ContactAPI.Entities;
 using ContactAPI.Models;
 using ContactAPI.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,6 +10,7 @@ namespace ContactAPI.Controllers
 {
     [Route("api/contact")]
     [ApiController]
+    [Authorize]
     public class ContactController : ControllerBase
     {
         private readonly IContactService _contactService;
@@ -19,6 +21,7 @@ namespace ContactAPI.Controllers
         }
 
         [HttpDelete("{id}")]
+
         public ActionResult Delete([FromRoute]int id) 
         {
             var isDeleted = _contactService.Delete(id);
@@ -41,19 +44,20 @@ namespace ContactAPI.Controllers
             return Ok();
         }
 
+
         [HttpGet]
-        public ActionResult<IEnumerable<ContactDto>> GetAll()
+        public ActionResult<IEnumerable<ContactAutorizedDto>> GetAllAutorized()
         {
-            var contacts = _contactService.GetAll();
+            var contacts = _contactService.GetAll<ContactAutorizedDto>();
             return Ok(contacts);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<ContactDto> Get([FromRoute] int id)
+        public ActionResult<ContactAutorizedDto> GetAutorized([FromRoute] int id)
         {
-            var retContact = _contactService.GetById(id);
+            var retContact = _contactService.GetById<ContactAutorizedDto>(id);
 
-            if(retContact == null)
+            if (retContact == null)
             {
                 return NotFound();
             }

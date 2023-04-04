@@ -16,12 +16,15 @@ namespace ContactAPI.Models
         public int RoleID { get; set; }
 
         [Required]
+        [MinLength(10)]
         public string Password { get; set; }
 
         [Required]
         public string ConfirmedPassword { get; set; }
 
         public string PhoneNumber { get; set; }
+
+        public DateTime DateOfBirth { get; set; }
 
     }
 }

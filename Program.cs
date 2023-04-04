@@ -7,12 +7,35 @@ using ContactAPI.Validators;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-//builder.Services.AddTransient<IContactService, ContactController>();
+var authenticationSetting = new AuthenticationSettings();
+
+
+builder.Configuration.GetSection("Authentication").Bind(authenticationSetting);
+
+builder.Services.AddAuthentication(option =>
+{
+    option.DefaultAuthenticateScheme = "Bearer";
+    option.DefaultScheme = "Bearer";
+    option.DefaultAuthenticateScheme = "Bearer";
+}).AddJwtBearer(cfg =>
+{
+    cfg.RequireHttpsMetadata = false;
+    cfg.SaveToken = true;
+    cfg.TokenValidationParameters = new TokenValidationParameters()
+    {
+        ValidIssuer = authenticationSetting.JwtIssuer,
+        ValidAudience = authenticationSetting.JwtIssuer,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authenticationSetting.JwtKey)),
+    };
+});
+
 builder.Services.AddControllers().AddFluentValidation();
 builder.Services.AddDbContext<ContactsDbContext>();
 builder.Services.AddScoped<ContactSeeder>();
@@ -33,7 +56,7 @@ using (var scope = app.Services.CreateScope())
     var contactSeeder = scope.ServiceProvider.GetService<ContactSeeder>();
     contactSeeder.Seed();
 }
-
+app.UseAuthentication();
 app.UseHttpsRedirection();
 
 app.UseSwagger();

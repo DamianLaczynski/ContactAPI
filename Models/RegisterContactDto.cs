@@ -2,7 +2,7 @@
 
 namespace ContactAPI.Models
 {
-    public class CreateContactDto
+    public class RegisterContactDto
     {
         [Required]
         [StringLength(50)]
@@ -15,7 +15,6 @@ namespace ContactAPI.Models
         public string Category { get; set; }
         [Required]
         public string Password { get; set; }
-        [Phone]
         public string PhoneNumber { get; set; }
     }
 }

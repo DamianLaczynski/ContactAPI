@@ -4,6 +4,7 @@ using FluentValidation;
 
 namespace ContactAPI.Validators
 {
+    //Validator dla modelu UpdateContactDto
     public class UpdateContactDtoValidator : AbstractValidator<UpdateContactDto>
     {
         public UpdateContactDtoValidator(ContactsDbContext dbContext)

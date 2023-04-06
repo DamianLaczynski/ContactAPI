@@ -4,6 +4,7 @@ using ContactAPI.Models;
 
 namespace ContactAPI
 {
+    //Mapowanie modeli
     public class ContactMappingProfile : Profile
     {
         public ContactMappingProfile() 

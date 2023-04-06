@@ -20,14 +20,14 @@ namespace ContactAPI.Controllers
         public ActionResult RegisterContact([FromBody]RegisterContactDto dto)
         {
             _accountService.RegisterUser(dto);
-            return Ok();
+            return Ok(); //Zwracanie status 200 OK
         }
 
         [HttpPost("login")]
         public ActionResult Login([FromBody]LoginDto dto)
         {
-            string token = _accountService.GenerateJwt(dto);
-            return Ok(token);
+            string token = _accountService.GenerateJwt(dto); // Generowanie JWT dla danych z DTO
+            return Ok(token); //Token zwracany w odpowiedzi
         }
     }
 }

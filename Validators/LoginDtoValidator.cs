@@ -4,6 +4,7 @@ using FluentValidation;
 
 namespace ContactAPI.Validators
 {
+    //Validator dla modelu LoginDto
     public class LoginDtoValidator : AbstractValidator<LoginDto>
     {
         public LoginDtoValidator(ContactsDbContext dbContext) 

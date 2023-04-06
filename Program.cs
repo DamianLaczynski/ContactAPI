@@ -16,7 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 var authenticationSetting = new AuthenticationSettings();
 
-
+// dodawanie serwisów do obs³ugi tworzenia tokenów 
 builder.Configuration.GetSection("Authentication").Bind(authenticationSetting);
 builder.Services.AddSingleton(authenticationSetting);
 builder.Services.AddAuthentication(option =>
@@ -38,6 +38,8 @@ builder.Services.AddAuthentication(option =>
 
 });
 
+
+//Dodanie kontrolerów i obs³ugi walidacji modeli
 builder.Services.AddControllers().AddFluentValidation();
 
 builder.Services.AddDbContext<ContactsDbContext>();
@@ -51,11 +53,12 @@ builder.Services.AddScoped<IAccountService, AccountService>();
 
 builder.Services.AddScoped<IPasswordHasher<Contact>, PasswordHasher<Contact>>();
 
+//dodanie walidatorów
 builder.Services.AddScoped<IValidator<RegisterContactDto>, RegisterContactDtoValidator>();
 builder.Services.AddScoped<IValidator<LoginDto>, LoginDtoValidator>();
 builder.Services.AddScoped<IValidator<UpdateContactDto>, UpdateContactDtoValidator>();
 
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(); //Dodanie Swaggera do generowania dokumentacji
 
 var app = builder.Build();
 
@@ -70,6 +73,7 @@ using (var scope = app.Services.CreateScope())
 app.UseAuthentication();
 app.UseHttpsRedirection();
 
+//u¿ycie biblioteki Swagger do generowania dokumentacji z interaktywnymi przyk³adami
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {

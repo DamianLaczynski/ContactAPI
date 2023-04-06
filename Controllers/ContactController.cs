@@ -10,7 +10,7 @@ namespace ContactAPI.Controllers
 {
     [Route("api/contact")]
     [ApiController]
-    [Authorize]
+    [Authorize] //Wszystkie działania będą wymagały aby użytkownik był zautoryzowany
     public class ContactController : ControllerBase
     {
         private readonly IContactService _contactService;
@@ -20,48 +20,48 @@ namespace ContactAPI.Controllers
             _contactService = contactService;
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}")] // Usuwanie kontaktu o zadanym ID
 
         public ActionResult Delete([FromRoute]int id) 
         {
-            var isDeleted = _contactService.Delete(id);
+            var isDeleted = _contactService.Delete(id); // Usuwanie kontaktu
 
-            if(isDeleted)
+            if (isDeleted)
             {
-                return NoContent();
+                return NoContent();  // Zwracamy status 204 No Content, jeśli kontakt został usunięty
             }
-            return NotFound();
+            return NotFound(); //status 404 Not Found, jeśli kontakt nie został znaleziony
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id}")] //Aktualizacja kontaktu
         public ActionResult UpdateContact([FromBody] UpdateContactDto dto, [FromRoute]int id)
         {
-            var isUpdated = _contactService.Update(id, dto);
+            var isUpdated = _contactService.Update(id, dto); //Aktualizowanie kontaktu
             if(!isUpdated)
             {
-                return NotFound();
+                return NotFound(); //status 404 Not Found, jeśli kontakt nie został znaleziony
             }
-            return Ok();
+            return Ok(); //status 200 OK, jeśli kontakt został zaktualizowany
         }
 
 
-        [HttpGet]
+        [HttpGet] // Pobieranie wszystkich kontaktów
         public ActionResult<IEnumerable<ContactAutorizedDto>> GetAllAutorized()
         {
             var contacts = _contactService.GetAll<ContactAutorizedDto>();
-            return Ok(contacts);
+            return Ok(contacts); //Zwracanie wszystkich kontaktów w odpowiedzi HTTP
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}")] // Pobieranie kontaktu po ID
         public ActionResult<ContactAutorizedDto> GetAutorized([FromRoute] int id)
         {
-            var retContact = _contactService.GetById<ContactAutorizedDto>(id);
+            var retContact = _contactService.GetById<ContactAutorizedDto>(id); //Pobieranie kontaktu po ID
 
             if (retContact == null)
             {
-                return NotFound();
+                return NotFound(); //status 404 Not Found, jeśli kontakt nie został znaleziony
             }
-            return Ok(retContact);
+            return Ok(retContact); //Zwracanie kontaktu w odpowiedzi HTTP
         }
     }
 }

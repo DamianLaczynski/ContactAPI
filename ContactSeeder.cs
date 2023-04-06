@@ -2,6 +2,7 @@
 
 namespace ContactAPI
 {
+    //Klasa inicjalizująca bazę danych podstawowymi danymi
     public class ContactSeeder 
     {
         private readonly ContactsDbContext _dbContext;

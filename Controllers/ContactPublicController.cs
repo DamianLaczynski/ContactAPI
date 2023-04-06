@@ -7,6 +7,7 @@ namespace ContactAPI.Controllers
 {
     [Route("api/public-contact")]
     [ApiController]
+    //kontroler dla użytkowników niezalogowanych
     public class ContactPublicController : ControllerBase
     {
         private readonly IContactService _contactService;
@@ -16,14 +17,18 @@ namespace ContactAPI.Controllers
             _contactService = contactService;
         }
 
+
+        //zwrócenie wszystkich publicznych kontaktów
         [HttpGet]
         [AllowAnonymous]
         public ActionResult<IEnumerable<ContactDto>> GetAll()
         {
             var contacts = _contactService.GetAll<ContactDto>();
-            return Ok(contacts);
+            return Ok(contacts); //status 200 OK
         }
 
+
+        //zwrócenie kontaku publicznego o zadanycm ID
         [HttpGet("{id}")]
         [AllowAnonymous]
         public ActionResult<ContactDto> Get([FromRoute] int id)
@@ -35,7 +40,7 @@ namespace ContactAPI.Controllers
             {
                 return NotFound();
             }
-            return Ok(retContact);
+            return Ok(retContact); //status 200 OK
 
         }
     }

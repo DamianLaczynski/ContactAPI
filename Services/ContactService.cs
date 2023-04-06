@@ -17,6 +17,8 @@ namespace ContactAPI.Services
             _mapper = mapper;
         }
 
+        // Metoda pobierająca kontakt po podanym ID
+        // - tylko dla modeli, które implementują interfejs IContact
         public T GetById<T>(int id) where T : IContact
         {
             var contact = _context.Contacts
@@ -27,25 +29,28 @@ namespace ContactAPI.Services
                 return default(T);
             }
 
-            var result = _mapper.Map<T>(contact);
+            var result = _mapper.Map<T>(contact); // mapowanie obiektu na DTO
             return result;
         }
 
+        // Metoda pobierająca wszystkie kontakty z bazy danych
+        // - tylko dla modeli, które implementują interfejs IContact
         public IEnumerable<T> GetAll<T>() where T : IContact
         {
             var contacts = _context.Contacts
                 .Include (c => c.Role)
                 .ToList();
-            var contactsDtos = _mapper.Map<List<T>>(contacts);
+            var contactsDtos = _mapper.Map<List<T>>(contacts); // mapowanie obiektu na DTO
             return contactsDtos;
         }
 
+        // Metoda aktualizująca dane kontaktu o podanym ID
         public bool Update(int id, UpdateContactDto dto)
         {
             var contact = _context.Contacts.FirstOrDefault(x => x.Id == id);
             if (contact == null)
             {
-                return false;
+                return false; //Nie zanleziono pasującego obiektu
             }
 
             contact.Name = dto.Name;
@@ -57,12 +62,13 @@ namespace ContactAPI.Services
             return true;
         }
 
+        // Metoda usuwająca kontakt o podanym ID
         public bool Delete(int id)
         {
             var contact = _context.Contacts.FirstOrDefault(x => x.Id == id);
             if(contact == null)
             {
-                return false;
+                return false; //Nie zanleziono pasującego obiektu
             }
             else
             {

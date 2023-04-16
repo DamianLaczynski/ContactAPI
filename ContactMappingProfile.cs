@@ -14,7 +14,9 @@ namespace ContactAPI
                 .ForMember(e => e.Role, c => c.MapFrom(s => s.Role.Name));
 
             CreateMap<Contact, ContactAutorizedDto>()
-                .ForMember(e => e.Role, c => c.MapFrom(s => s.Role.Name));
+                .ForMember(e => e.Role, c => c.MapFrom(s => s.Role.Name))
+                .ForMember(e => e.RoleId, c => c.MapFrom(s => s.Role.Id));
+                //.ForMember(e => e.DateOfBirth, c => c.MapFrom(s => s.DateOfBirth.ToString()));
 
         }
     }

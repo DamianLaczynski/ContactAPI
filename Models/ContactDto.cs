@@ -5,6 +5,7 @@ namespace ContactAPI.Models
 {
     public class ContactDto : IContact
     {
+        public int Id { get; set; }
         public string Name { get; set; }
 
         public string Surname { get; set; }
@@ -13,6 +14,6 @@ namespace ContactAPI.Models
 
         public string PhoneNumber { get; set; }
 
-        public DateTime? DateOfBirth { get; set; }
+        //public DateTime? DateOfBirth { get; set; }
     }
 }

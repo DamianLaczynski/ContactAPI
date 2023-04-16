@@ -15,9 +15,6 @@ namespace ContactAPI.Validators
 
             RuleFor(e => e.Email).EmailAddress();
 
-            RuleFor(x => x.Password).NotEmpty();
-
-            RuleFor(x => x.ConfirmedPassword).Equal(e => e.Password);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace ContactAPI.Services
 
         string Surname { get; set; }
 
-        public System.DateTime? DateOfBirth { get; set; }
+        //public System.DateTime? DateOfBirth { get; set; }
 
     }
 }

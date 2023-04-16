@@ -27,7 +27,11 @@ namespace ContactAPI.Controllers
         public ActionResult Login([FromBody]LoginDto dto)
         {
             string token = _accountService.GenerateJwt(dto); // Generowanie JWT dla danych z DTO
-            return Ok(token); //Token zwracany w odpowiedzi
+            return Ok(new
+            {
+                Token = token,
+                Message = "Login Success"
+            }); //Token zwracany w odpowiedzi
         }
     }
 }

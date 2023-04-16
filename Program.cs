@@ -60,6 +60,16 @@ builder.Services.AddScoped<IValidator<UpdateContactDto>, UpdateContactDtoValidat
 
 builder.Services.AddSwaggerGen(); //Dodanie Swaggera do generowania dokumentacji
 
+builder.Services.AddCors(setup =>
+{
+    setup.AddPolicy("default", policy =>
+    {
+        policy.AllowAnyHeader()
+            .AllowAnyOrigin()
+            .AllowAnyMethod();
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -79,6 +89,8 @@ app.UseSwaggerUI(c =>
 {
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Contact API");
 });
+
+app.UseCors("default");
 
 app.UseAuthorization();
 

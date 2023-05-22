@@ -16,7 +16,6 @@ namespace ContactAPI.Controllers
         }
 
         [HttpPost("register")]
-        [Authorize]
         public ActionResult RegisterContact([FromBody]RegisterContactDto dto)
         {
             _accountService.RegisterUser(dto);

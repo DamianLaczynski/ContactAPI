@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using ContactAPI.Entities;
 using ContactAPI.Models;
 using Microsoft.EntityFrameworkCore;
 

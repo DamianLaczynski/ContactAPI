@@ -54,15 +54,15 @@ namespace ContactAPI.Services
                 throw new BadRequestException("Invalid username or password");
             }
 
-            // Pobieramy rolę użytkownika z bazy danych
-            var role = _context.Roles.FirstOrDefault(e => e.Id == user.RoleID);
-
             // Sprawdzamy, czy podane hasło jest poprawne
             var result = _passwordHasher.VerifyHashedPassword(user, user.HashedPassword, loginDto.Password);
             if(result == PasswordVerificationResult.Failed)
             {
                 throw new BadRequestException("Invalid username or password");
             }
+
+            // Pobieramy rolę użytkownika z bazy danych
+            var role = _context.Roles.FirstOrDefault(e => e.Id == user.RoleID);
 
             // Tworzymy listę claimów potrzebnych do wygenerowania tokenu użytkownika
             var claims = new List<Claim>()

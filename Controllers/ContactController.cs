@@ -20,8 +20,9 @@ namespace ContactAPI.Controllers
             _contactService = contactService;
         }
 
-        [HttpDelete("{id}")] // Usuwanie kontaktu o zadanym ID
-
+        // Usuwanie kontaktu o zadanym ID
+        [HttpDelete("{id}")] 
+        [Authorize(Roles ="admin")]
         public ActionResult Delete([FromRoute]int id) 
         {
             var isDeleted = _contactService.Delete(id); // Usuwanie kontaktu

@@ -1,5 +1,4 @@
-﻿using ContactAPI.Entities;
-using ContactAPI.Models;
+﻿using ContactAPI.Models;
 using FluentValidation;
 
 namespace ContactAPI.Validators

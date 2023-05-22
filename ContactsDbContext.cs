@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ContactAPI.Entities;
+using Microsoft.EntityFrameworkCore;
 
-namespace ContactAPI.Entities
+namespace ContactAPI
 {
     public class ContactsDbContext : DbContext
     {

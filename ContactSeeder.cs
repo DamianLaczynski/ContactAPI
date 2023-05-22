@@ -30,15 +30,15 @@ namespace ContactAPI
             {
                 new Role()
                 {
-                    Name = "służbowy"
+                    Name = "admin"
                 },
                 new Role()
                 {
-                    Name= "prywatny"
+                    Name= "manager"
                 },
                 new Role()
                 {
-                    Name = "inny"
+                    Name = "klient"
                 }
             };
 
